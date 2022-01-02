@@ -22,7 +22,7 @@ defmodule AdeptEcto.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.6"},
-      {:adept, path: "../adept"},
+      {:adept, git: "git@github.com:adept-bits/adept.git"}
     ]
   end
 end

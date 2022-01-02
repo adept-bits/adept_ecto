@@ -18,7 +18,7 @@ defmodule AdeptEcto.Context do
   
       def get(id), do: unquote(repo).get( __MODULE__, id)
       def get!(id), do: unquote(repo).get!( __MODULE__, id)
-      def fetch(id), do: unquote(repo).get!( __MODULE__, id)
+      def fetch(id), do: unquote(repo).fetch( __MODULE__, id)
 
       def get_by( key, value )when is_atom(key), do: get_by( [{key, value}] )
       def get_by( opts ) when is_list(opts), do: unquote(repo).get_by(__MODULE__, opts)
