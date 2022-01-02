@@ -27,7 +27,6 @@ defmodule AdeptEcto.Access do
     end
   end
 
-
   # list the objects
   def list( repo, schema ), do: repo.all(schema)
   def list( repo, schema, opts ) do
@@ -51,6 +50,21 @@ defmodule AdeptEcto.Access do
   end
   defp maybe_add_clause( query, :select, value ) do
     select( query, ^value )
+  end
+
+  # generic query functions
+  def all( repo, schema, query_fn )
+  when is_atom(repo) and is_atom(schema) and is_function(query_fn, 1) do
+    schema
+    |> query_fn.()
+    |> repo.all()
+  end
+
+  def one( repo, schema, query_fn )
+  when is_atom(repo) and is_atom(schema) and is_function(query_fn, 1) do
+    schema
+    |> query_fn.()
+    |> repo.one()
   end
 
 
