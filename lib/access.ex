@@ -52,32 +52,6 @@ defmodule AdeptEcto.Access do
     select( query, ^value )
   end
 
-  # generic query functions
-  def all( repo, schema, query_fn )
-  when is_atom(repo) and is_atom(schema) and is_function(query_fn, 1) do
-    schema
-    |> query_fn.()
-    |> repo.all()
-  end
-
-  def one( repo, schema, query_fn )
-  when is_atom(repo) and is_atom(schema) and is_function(query_fn, 1) do
-    schema
-    |> query_fn.()
-    |> repo.one()
-  end
-
-
-  # def list( %User{} = user ), do: list( user.id )
-      # where: x.user_id == ^user_id,
-  def list_inserted_at( repo, schema ) do
-    Ecto.Query.from(
-      x in schema,
-      order_by: [desc: x.inserted_at]
-    )
-    |> repo.all
-  end
-
   # insert_id
   # For generating a record with a randomly generated string id.
   # So... generate a random one and try to insert it.
