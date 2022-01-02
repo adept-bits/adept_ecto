@@ -30,6 +30,30 @@ defmodule AdeptEcto.Access do
 
   # list the objects
   def list( repo, schema ), do: repo.all(schema)
+  def list( repo, schema, opts ) do
+    where = Keyword.get(opts, :where)
+    order = Keyword.get(opts, :order_by)
+    select = Keyword.get(opts, :select)
+    schema
+    |> maybe_add_clause( :where, where )
+    |> maybe_add_clause( :order_by, order )
+    |> maybe_add_clause( :select, select )
+    |> repo.all()
+  end
+  defp maybe_add_clause( query, clause, value )
+  defp maybe_add_clause( query, _clause, nil ), do: query
+  defp maybe_add_clause( query, _clause, [] ), do: query
+  defp maybe_add_clause( query, :where, value ) do
+    where( query, ^value )
+  end
+  defp maybe_add_clause( query, :order_by, value ) do
+    order_by( query, ^value )
+  end
+  defp maybe_add_clause( query, :select, value ) do
+    select( query, ^value )
+  end
+
+
   # def list( %User{} = user ), do: list( user.id )
       # where: x.user_id == ^user_id,
   def list_inserted_at( repo, schema ) do

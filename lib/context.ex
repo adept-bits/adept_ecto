@@ -14,6 +14,7 @@ defmodule AdeptEcto.Context do
       def preload( records, key ), do: unquote(repo).preload( records, key )
 
       def list(), do: unquote(repo).all( __MODULE__ )
+      def list(opts), do: AdeptEcto.Access.list( unquote(repo), __MODULE__, opts )
       def list_inserted_at(), do: AdeptEcto.Access.list_inserted_at( unquote(repo), __MODULE__ )
   
       def get(id), do: unquote(repo).get( __MODULE__, id)
@@ -32,6 +33,7 @@ defmodule AdeptEcto.Context do
         reload!: 1,
         preload: 2,
         list: 0,
+        list: 1,
         list_inserted_at: 0,
         get: 1,
         get!: 1,
