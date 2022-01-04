@@ -31,8 +31,12 @@ defmodule AdeptEcto.ContextTest do
     assert Kernel.function_exported?(Thing, :list, 0)
   end
 
-  test "list_inserted_at was added" do
-    assert Kernel.function_exported?(Thing, :list_inserted_at, 0)
+  test "one was added" do
+    assert Kernel.function_exported?(Thing, :one, 1)
+  end
+
+  test "all was added" do
+    assert Kernel.function_exported?(Thing, :all, 1)
   end
 
   test "get was added" do
