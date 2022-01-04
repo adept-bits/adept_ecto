@@ -27,6 +27,13 @@ defmodule AdeptEcto.Access do
     end
   end
 
+  def fetch_by( repo, schema, opts ) when is_atom(repo) and is_atom(schema) and is_list(opts) do
+    case repo.get_by(schema, opts) do
+      nil ->  {:error, :not_found}
+      ref -> {:ok, ref}
+    end
+  end
+
   # list the objects
   def list( repo, schema ), do: repo.all(schema)
   def list( repo, schema, opts ) do

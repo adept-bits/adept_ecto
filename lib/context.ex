@@ -23,8 +23,8 @@ defmodule AdeptEcto.Context do
       def get!(id), do: unquote(repo).get!( __MODULE__, id)
       def fetch(id), do: AdeptEcto.Access.fetch( unquote(repo), __MODULE__, id)
 
-      def get_by( key, value )when is_atom(key), do: get_by( [{key, value}] )
       def get_by( opts ) when is_list(opts), do: unquote(repo).get_by(__MODULE__, opts)
+      def fetch_by(opts), do: AdeptEcto.Access.fetch_by( unquote(repo), __MODULE__, opts)
 
       def repo(), do: unquote(repo)
 
@@ -42,7 +42,7 @@ defmodule AdeptEcto.Context do
         get!: 1,
         fetch: 1,
         get_by: 1,
-        get_by: 2,
+        fetch_by: 1,
         repo: 0
 
       # quote

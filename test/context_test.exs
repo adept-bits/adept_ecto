@@ -53,7 +53,10 @@ defmodule AdeptEcto.ContextTest do
 
   test "get_by was added" do
     assert Kernel.function_exported?(Thing, :get_by, 1)
-    assert Kernel.function_exported?(Thing, :get_by, 2)
+  end
+
+  test "fetch_by was added" do
+    assert Kernel.function_exported?(Thing, :fetch_by, 1)
   end
 
   test "repo was added" do
