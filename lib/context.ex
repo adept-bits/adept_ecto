@@ -5,8 +5,8 @@ defmodule AdeptEcto.Context do
   defmacro __using__(repo) do
     quote do
       def count(), do: AdeptEcto.Access.count( unquote(repo), __MODULE__ )
-      def count( query ), do: AdeptEcto.Access.count( unquote(repo), query )
-      def exists?( query ), do: AdeptEcto.Access.exists?( unquote(repo), query )
+      def count( query_opts ), do: AdeptEcto.Access.count( unquote(repo), query_opts )
+      def exists?( query_opts ), do: AdeptEcto.Access.exists?( unquote(repo), query_opts )
 
       def reload( %{id: id} ), do: unquote(repo).get( __MODULE__, id)
       def reload!( %{id: id} ), do: unquote(repo).get!( __MODULE__, id )
