@@ -4,6 +4,10 @@ defmodule AdeptEcto.Changeset do
 #  import IEx
 
   #----------------------------------------------------------------------------
+
+Ecto.Changeset
+
+  @spec validate_first_char( struct :: Ecto.Changeset.t(), field :: atom(), opts :: Keyword.t() ) :: Ecto.Changeset.t()
   def validate_first_char( struct, field, opts ) do
     case fetch_change(struct, field) do
       {:ok, nil} ->     struct
@@ -29,6 +33,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec validate_email( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def validate_email( struct, field ) do
     struct
       |> strip_string_field( field )
@@ -38,6 +43,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec validate_not_email( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def validate_not_email( struct, field ) do
     struct
       |> strip_string_field( field )
@@ -45,6 +51,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec validate_spaceless( struct :: Ecto.Changeset.t(), field :: atom(), opts :: Keyword.t() ) :: Ecto.Changeset.t()
   def validate_spaceless( struct, field, opts \\ [] ) do
     validate_change(struct, field, fn(f, str) ->
       case str =~ " " do
@@ -55,6 +62,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec strip_string_field( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def strip_string_field( struct, field ) do
     case fetch_change(struct, field) do
       {:ok, nil} ->     struct
@@ -69,6 +77,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec squash_string_field( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def squash_string_field( struct, field ) do
     case fetch_change(struct, field) do
       {:ok, nil} ->     struct
@@ -83,6 +92,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec downcase_string_field( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def downcase_string_field( struct, field ) do
     case fetch_change(struct, field) do
       {:ok, nil} ->     struct
@@ -97,6 +107,7 @@ defmodule AdeptEcto.Changeset do
   end
 
   #----------------------------------------------------------------------------
+  @spec upcase_string_field( struct :: Ecto.Changeset.t(), field :: atom() ) :: Ecto.Changeset.t()
   def upcase_string_field( struct, field ) do
     case fetch_change(struct, field) do
       {:ok, nil} ->     struct

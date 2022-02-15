@@ -28,35 +28,42 @@ defmodule AdeptEcto.ContextTest do
   end
 
   test "list was added" do
-    assert Kernel.function_exported?(Thing, :list, 0)
   end
 
   test "one was added" do
     assert Kernel.function_exported?(Thing, :one, 1)
+    assert Kernel.function_exported?(Thing, :one, 2)
   end
 
   test "all was added" do
+    assert Kernel.function_exported?(Thing, :all, 0)
     assert Kernel.function_exported?(Thing, :all, 1)
+    assert Kernel.function_exported?(Thing, :all, 2)
   end
 
   test "get was added" do
     assert Kernel.function_exported?(Thing, :get, 1)
+    assert Kernel.function_exported?(Thing, :get, 2)
   end
 
   test "get! was added" do
     assert Kernel.function_exported?(Thing, :get!, 1)
+    assert Kernel.function_exported?(Thing, :get!, 2)
   end
 
   test "fetch was added" do
     assert Kernel.function_exported?(Thing, :fetch, 1)
+    assert Kernel.function_exported?(Thing, :fetch, 2)
   end
 
   test "get_by was added" do
     assert Kernel.function_exported?(Thing, :get_by, 1)
+    assert Kernel.function_exported?(Thing, :get_by, 2)
   end
 
   test "fetch_by was added" do
     assert Kernel.function_exported?(Thing, :fetch_by, 1)
+    assert Kernel.function_exported?(Thing, :fetch_by, 2)
   end
 
   test "repo was added" do

@@ -2,63 +2,54 @@ defmodule AdeptEcto.Access do
   use Ecto.Schema
   import Ecto.Query
 
-#  import IEx
-
-  #----------------------------------------------------------------------------
+  #--------------------------------------------------------
   # count the total number of rows in a column in a repo
+  @spec count(repo :: Ecto.Repo.t(), schema :: Ecto.Queryable.t()) :: pos_integer
   def count( repo, schema ) when is_atom(repo) and is_atom(schema) do
     schema
       |> select([x], count(x.id))
       |> repo.one
   end
-
   def count( repo, query ) when is_atom(repo) do
     repo.one( query )
   end
 
+  @spec exists?(repo :: Ecto.Repo.t(), query :: Ecto.Queryable.t()) :: boolean
   def exists?(repo, query) when is_atom(repo) do
     count( repo, query ) > 0
   end
 
-  def fetch( repo, schema, id ) when is_atom(repo) and is_atom(schema) do
-    case repo.get(schema, id) do
+
+  #--------------------------------------------------------
+  @spec fetch(repo :: Ecto.Repo.t(), schema :: Ecto.Queryable.t(), id :: term(), opts :: Keyword.t() ) ::
+    {:ok, Ecto.Schema.t()}
+    | {:error, :not_found}
+  def fetch( repo, schema, id, opts \\ [] )
+  when is_atom(repo) and is_atom(schema) and is_list(opts) do
+    case repo.get(schema, id, opts) do
       nil ->  {:error, :not_found}
       ref -> {:ok, ref}
     end
   end
 
-  def fetch_by( repo, schema, opts ) when is_atom(repo) and is_atom(schema) and is_list(opts) do
-    case repo.get_by(schema, opts) do
+  @spec fetch_by(
+    repo :: Ecto.Repo.t(),
+    schema :: Ecto.Queryable.t(),
+    clauses :: Keyword.t(),
+    opts :: Keyword.t() 
+  ) ::
+    {:ok, Ecto.Schema.t()}
+    | {:error, :not_found}
+  def fetch_by( repo, schema, clauses, opts \\ [] )
+  when is_atom(repo) and is_atom(schema) and is_list(clauses) and is_list(opts) do
+    case repo.get_by(schema, clauses, opts) do
       nil ->  {:error, :not_found}
       ref -> {:ok, ref}
     end
   end
 
-  # list the objects
-  def list( repo, schema ), do: repo.all(schema)
-  def list( repo, schema, opts ) do
-    where = Keyword.get(opts, :where)
-    order = Keyword.get(opts, :order_by)
-    select = Keyword.get(opts, :select)
-    schema
-    |> maybe_add_clause( :where, where )
-    |> maybe_add_clause( :order_by, order )
-    |> maybe_add_clause( :select, select )
-    |> repo.all()
-  end
-  defp maybe_add_clause( query, clause, value )
-  defp maybe_add_clause( query, _clause, nil ), do: query
-  defp maybe_add_clause( query, _clause, [] ), do: query
-  defp maybe_add_clause( query, :where, value ) do
-    where( query, ^value )
-  end
-  defp maybe_add_clause( query, :order_by, value ) do
-    order_by( query, ^value )
-  end
-  defp maybe_add_clause( query, :select, value ) do
-    select( query, ^value )
-  end
 
+  #--------------------------------------------------------
   # insert_id
   # For generating a record with a randomly generated string id.
   # So... generate a random one and try to insert it.
