@@ -23,7 +23,9 @@ defmodule AdeptEcto.MixProject do
     [
       {:ecto_sql, "~> 3.6"},
       # {:adept, git: "git@github.com:adept-bits/adept.git"}
-      {:adept, git: "https://github.com/adept-bits/adept.git"}
+      {:adept, git: "https://github.com/adept-bits/adept.git"},
+
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 end
